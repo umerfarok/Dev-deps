@@ -1,0 +1,85 @@
+  version: "3.9"
+  networks:
+    maxstore:
+  services:
+    mongo:
+      container_name: mongo
+      mem_limit: 2gb
+      image: mongo:latest
+      volumes:
+        - ./storage/mongo:/data/db
+      ports:
+        - "27017:27017"
+      logging:
+        driver: "json-file"
+        options:
+          max-file: "5"
+          max-size: "100m"
+      environment:
+        MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+        MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      healthcheck:
+        test:
+          - CMD
+          - mongosh
+          - --eval
+          - "db.adminCommand('ping')"
+        interval: 30s
+        timeout: 10s
+        retries: 5
+      networks:
+        - maxstore
+    timescale:
+      container_name: timescale
+      mem_limit: 16gb
+      image: timescale/timescaledb:latest-pg12
+      volumes:
+        - ./storage/timescale:/var/lib/postgresql/data
+      environment:
+        POSTGRES_PASSWORD: ${PG_PASSWORD}
+        POSTGRES_DB: ${PG_DB}
+        PGDATA: /var/lib/postgresql/data/pgdata
+      ports:
+        - "5432:5432"
+      logging:
+        driver: "json-file"
+        options:
+          max-file: "5"
+          max-size: "100m"
+      healthcheck:
+        test: ["CMD-SHELL", "pg_isready -U postgres"]
+        interval: 30s
+        timeout: 10s
+        retries: 5
+      networks:
+        - maxstore
+    keycloak:
+      image: quay.io/keycloak/keycloak:22.0.3
+      container_name: keycloak
+      command:
+        - start-dev
+        - --log-level=ROOT:DEBUG
+        - --import-realm
+      ports:
+        - "8080:8080"
+      environment:
+        # keycloak.url: http://keycloak:8080
+        KEYCLOAK_ADMIN: admin
+        KEYCLOAK_ADMIN_PASSWORD: admin
+        KC_DB: postgres
+        KC_DB_PASSWORD: ${PG_PASSWORD}
+        KC_DB_SCHEMA: public
+        KC_DB_USERNAME: ${PG_USER}
+        KC_DB_URL_HOST: timescale
+        KC_DB_URL_PORT: 5432
+        KC_DB_URL_DATABASE: ${PG_DB}
+        KEYCLOAK_LOGLEVEL: DEBUG
+        KC_HOSTNAME: localhost
+      networks:
+        - maxstore
+      volumes:
+        - "./realm.json:/opt/keycloak/data/import/realm.json"
+        - "./themes:/opt/keycloak/themes"
+      depends_on:
+        - timescale
+      restart: on-failure

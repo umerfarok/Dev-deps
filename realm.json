@@ -1,0 +1,97 @@
+{
+  "realm": "maxstore",
+  "id": "maxstore",
+  "displayName": "E Store Max",
+  "enabled": true,
+  "loginTheme": "maxstore",
+  "registrationAllowed": true,
+  "users": [
+    {
+      "username": "admin1",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": true,
+      "email": "admin@example.com",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "admin1"
+        }
+      ],
+      "attributes": {
+        "phone": "+1 555 555 5555",
+        "address": "123 Main St, Anytown, USA",
+        "dateOfBirth": "1990-01-01",
+        "preferredLanguage": "en"
+      },
+      "realmRoles": ["admin"], 
+      "clientRoles": {
+        "maxstore-client": ["user", "admin","superAdmin"],
+        "seller-dashboard-client": ["seller"],
+        "blog-client": ["blogger"]
+      }
+    }
+  ],
+  "roles": {
+    "realm": [
+      {
+        "name": "admin",
+        "description": "Administrator"
+      },
+      {
+        "name": "user",
+        "description": "Regular User"
+      },
+      {
+        "name": "seller",
+        "description": "Seller"
+      }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "maxstore-client",
+      "name": "React App Client",
+      "publicClient": true,
+      "enabled": true,
+      "redirectUris": ["http://localhost:3000/*"],
+      "webOrigins": ["http://localhost:3000"],
+      "protocol": "openid-connect",
+      "fullScopeAllowed": false,
+      "attributes": {},
+      "defaultRoles": ["user"],
+      "authorizationServicesEnabled": false,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true
+    },
+    {
+      "clientId": "seller-dashboard-client",
+      "name": "Seller Dashboard Client",
+      "enabled": true,
+      "publicClient": true,
+      "redirectUris": ["http://localhost:3000/*"],
+      "protocol": "openid-connect",
+      "defaultRoles": ["seller"],
+      "fullScopeAllowed": false,
+      "authorizationServicesEnabled": true,
+      "authorizationSettings": {
+        "policyEnforcementMode": "ENFORCING"
+      }
+    },
+    {
+      "clientId": "blog-client",
+      "name": "Blog Client",
+      "publicClient": true,
+      "enabled": true,
+      "redirectUris": ["http://localhost:3000/*"],
+      "protocol": "openid-connect",
+      "defaultRoles": ["blogger"],
+      "fullScopeAllowed": false,
+      "authorizationServicesEnabled": true,
+      "authorizationSettings": {
+        "policyEnforcementMode": "ENFORCING"
+      }
+    }
+  ]
+}
