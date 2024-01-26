@@ -83,3 +83,14 @@
       depends_on:
         - timescale
       restart: on-failure
+    migrations:
+      image: 09078601/migrations:v1.0.2
+      pull_policy: always
+      networks:
+        - maxstore
+      volumes:
+        - ./pg-migrations:/app/migrations
+      env_file:
+        - .env
+      depends_on:
+        - timescale
