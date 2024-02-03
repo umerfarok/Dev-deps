@@ -85,7 +85,7 @@
       restart: on-failure
     migrations:
       image: 09078601/migrations:v1.0.2
-      pull_policy: always
+      pull_policy: if_not_present
       networks:
         - maxstore
       volumes:
@@ -93,4 +93,14 @@
       env_file:
         - .env
       depends_on:
+        - timescale
+    maxengine:
+      image: maxengine:v1.0.2
+      pull_policy: if_not_present
+      networks:
+        - maxstore
+      env_file:
+        - .env
+      depends_on:
+        - keycloak
         - timescale

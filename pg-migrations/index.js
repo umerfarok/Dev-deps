@@ -26,14 +26,14 @@ async function main() {
     process.exit(1);
   }
 
-  const files = fs.readdirSync('./pg-sql-migrations').sort(); // updated path
+  const files = fs.readdirSync('./pg-sql-migrations').sort(); 
   console.log('Found the following migration files:', files);
 
   for (const file of files) {
     if (path.extname(file) === '.sql') {
       console.log(`Executing script ${file}`);
       try {
-        const sql = fs.readFileSync(path.join('./pg-sql-migrations', file), 'utf-8'); // updated path
+        const sql = fs.readFileSync(path.join('./pg-sql-migrations', file), 'utf-8'); 
         console.log(`Executing the following SQL: ${sql}`);
         await client.query(sql);
         console.log(`Successfully executed script ${file}`);
