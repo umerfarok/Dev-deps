@@ -6,7 +6,7 @@ BEGIN
         AND tablename = 'seller_access_requests'
     ) THEN
         CREATE TABLE seller_access_requests (
-            user_id INT,
+            user_id VARCHAR(255),
             user_name VARCHAR(255),
             user_email VARCHAR(255),
             company_name VARCHAR(255),

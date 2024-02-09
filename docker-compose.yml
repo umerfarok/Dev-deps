@@ -72,7 +72,7 @@
         KC_DB_USERNAME: ${PG_USER}
         KC_DB_URL_HOST: timescale
         KC_DB_URL_PORT: 5432
-        KC_DB_URL_DATABASE: ${PG_DB}
+        KC_DB_URL_DATABASE: ${PG_DATABASE}
         KEYCLOAK_LOGLEVEL: DEBUG
         KC_HOSTNAME: localhost
       networks:
@@ -83,24 +83,27 @@
       depends_on:
         - timescale
       restart: on-failure
-    migrations:
-      image: 09078601/migrations:v1.0.2
-      pull_policy: if_not_present
-      networks:
-        - maxstore
-      volumes:
-        - ./pg-migrations:/app/migrations
-      env_file:
-        - .env
-      depends_on:
-        - timescale
-    maxengine:
-      image: maxengine:v1.0.2
-      pull_policy: if_not_present
-      networks:
-        - maxstore
-      env_file:
-        - .env
-      depends_on:
-        - keycloak
-        - timescale
+    # migrations:
+    #   image: 09078601/migrations:v1.0.2
+    #   pull_policy: if_not_present
+    #   networks:
+    #     - maxstore
+    #   volumes:
+    #     - ./pg-migrations:/app/migrations
+    #   env_file:
+    #     - .env
+    #   depends_on:
+    #     - timescale
+    # maxengine:
+    #   container_name: maxengine
+    #   image: maxengine:v1.0.2
+    #   ports:
+    #     - "4000:4000"
+    #   pull_policy: if_not_present
+    #   networks:
+    #     - maxstore
+    #   env_file:
+    #     - .env
+    #   depends_on:
+    #     - keycloak
+    #     - timescale
