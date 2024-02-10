@@ -37,7 +37,7 @@
         - ./storage/timescale:/var/lib/postgresql/data
       environment:
         POSTGRES_PASSWORD: ${PG_PASSWORD}
-        POSTGRES_DB: ${PG_DB}
+        POSTGRES_DB: ${PG_DATABASE}
         PGDATA: /var/lib/postgresql/data/pgdata
       ports:
         - "5432:5432"
@@ -83,17 +83,17 @@
       depends_on:
         - timescale
       restart: on-failure
-    # migrations:
-    #   image: 09078601/migrations:v1.0.2
-    #   pull_policy: if_not_present
-    #   networks:
-    #     - maxstore
-    #   volumes:
-    #     - ./pg-migrations:/app/migrations
-    #   env_file:
-    #     - .env
-    #   depends_on:
-    #     - timescale
+    migrations:
+      image: 09078601/migrations:v1.0.2
+      pull_policy: always
+      networks:
+        - maxstore
+      volumes:
+        - ./pg-migrations:/app/migrations
+      env_file:
+        - .env
+      depends_on:
+        - timescale
     # maxengine:
     #   container_name: maxengine
     #   image: maxengine:v1.0.2
