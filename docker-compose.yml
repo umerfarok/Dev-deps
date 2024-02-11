@@ -74,7 +74,6 @@
         KC_DB_URL_PORT: 5432
         KC_DB_URL_DATABASE: ${PG_DATABASE}
         KEYCLOAK_LOGLEVEL: DEBUG
-        KC_HOSTNAME: localhost
       networks:
         - maxstore
       volumes:
@@ -85,7 +84,7 @@
       restart: on-failure
     migrations:
       image: 09078601/migrations:v1.0.2
-      pull_policy: always
+      pull_policy: if_not_present
       networks:
         - maxstore
       volumes:
@@ -94,16 +93,22 @@
         - .env
       depends_on:
         - timescale
-    # maxengine:
-    #   container_name: maxengine
-    #   image: maxengine:v1.0.2
-    #   ports:
-    #     - "4000:4000"
-    #   pull_policy: if_not_present
-    #   networks:
-    #     - maxstore
-    #   env_file:
-    #     - .env
-    #   depends_on:
-    #     - keycloak
-    #     - timescale
+        - keycloak
+    maxengine:
+      container_name: maxengine
+      image: 09078601/maxengine:v1.0.0
+      ports:
+        - "4000:4000"
+      pull_policy: if_not_present
+      networks:
+        - maxstore
+      env_file:
+        - .env
+      environment:
+        - KEYCLOAK_URL="keycloak:8080"
+        - KEYCLOAK_REALM=${KEYCLOAK_REALM}
+        - KEYCLOAK_CLIENT_ID=${KEYCLOAK_CLIENT_ID}
+        - KEYCLOAK_CLIENT_SECRET=${KEYCLOAK_CLIENT_SECRET}
+      depends_on:
+        - keycloak
+        - timescale
