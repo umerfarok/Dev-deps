@@ -112,3 +112,5 @@
       depends_on:
         - keycloak
         - timescale
+      profiles:
+        - "all"
