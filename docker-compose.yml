@@ -81,6 +81,8 @@
         - "./themes:/opt/keycloak/themes"
       depends_on:
         - timescale
+      profiles:
+        - "keycloak"
       restart: on-failure
     migrations:
       image: 09078601/migrations:v1.0.2
@@ -93,7 +95,6 @@
         - .env
       depends_on:
         - timescale
-        - keycloak
     maxengine:
       container_name: maxengine
       image: 09078601/maxengine:v1.0.0

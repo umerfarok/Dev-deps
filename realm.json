@@ -54,7 +54,7 @@
       "name": "React App Client",
       "publicClient": true,
       "enabled": true,
-      "redirectUris": ["http://localhost:3000/*", "maxstore-mobil://redirect","http://localhost:8081/*"],
+      "redirectUris": ["http://localhost:3000/*", "maxstore-mobile://Homepage","http://localhost:8081/*"],
       "webOrigins": ["http://localhost:3000","http://localhost:8081"],
       "protocol": "openid-connect",
       "fullScopeAllowed": false,
@@ -62,7 +62,7 @@
       "defaultRoles": ["user"],
       "authorizationServicesEnabled": false,
       "standardFlowEnabled": true,
-      "implicitFlowEnabled": false,
+      "implicitFlowEnabled": false, 
       "directAccessGrantsEnabled": true
     },
     {
