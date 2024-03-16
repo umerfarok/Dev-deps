@@ -86,7 +86,7 @@
       restart: on-failure
     migrations:
       image: 09078601/migrations:v1.0.2
-      pull_policy: if_not_present
+      pull_policy: always
       networks:
         - maxstore
       volumes:

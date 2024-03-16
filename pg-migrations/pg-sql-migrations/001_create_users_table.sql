@@ -26,7 +26,7 @@ BEGIN
             country VARCHAR(255),
             branch_code VARCHAR(255),
             bank_name VARCHAR(255),
-            image_urls VARCHAR(255)[],
+            image_urls VARCHAR(255)[]
 
         );
     END IF;
