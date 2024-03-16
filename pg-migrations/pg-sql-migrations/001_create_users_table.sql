@@ -18,9 +18,16 @@ BEGIN
             user_name VARCHAR(255),
             user_email VARCHAR(255),
             company_name VARCHAR(255),
+            phone_number VARCHAR(255),
             cnic VARCHAR(255),
             request_date DATE,
-            status VARCHAR(255)
+            status VARCHAR(255),
+            adress VARCHAR(255),
+            country VARCHAR(255),
+            branch_code VARCHAR(255),
+            bank_name VARCHAR(255),
+            image_urls VARCHAR(255)[],
+
         );
     END IF;
 END $$;
