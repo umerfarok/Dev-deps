@@ -7,7 +7,7 @@ BEGIN
     ) THEN
         EXECUTE 'CREATE SCHEMA maxstore';
     END IF;
-
+    
     IF NOT EXISTS (
         SELECT FROM pg_tables
         WHERE schemaname = 'maxstore'
@@ -22,12 +22,13 @@ BEGIN
             cnic VARCHAR(255),
             request_date DATE,
             status VARCHAR(255),
-            adress VARCHAR(255),
+            address VARCHAR(255),
             country VARCHAR(255),
             branch_code VARCHAR(255),
             bank_name VARCHAR(255),
             image_urls VARCHAR(255)[]
-
         );
+
+        CREATE INDEX seller_access_requests_user_id_idx ON maxstore.seller_access_requests (user_id, user_email, status);
     END IF;
 END $$;
