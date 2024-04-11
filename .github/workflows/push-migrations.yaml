@@ -3,7 +3,7 @@ name: pushMigrations
 on:
   push:
     branches:
-      - master
+      - main
     paths:
         pg-migrations/**
 

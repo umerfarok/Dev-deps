@@ -6,6 +6,7 @@ console.log('Connecting to the database with the following credentials:');
 console.log('Host:', 'localhost');
 console.log('Port:', 5432);
 console.log('User:', process.env.PG_USER);
+console.log('Password:', process.env.PG_PASSWORD);
 console.log('Database:', 'postgres');
 
 const client = new Client({
