@@ -6,6 +6,7 @@ WORKDIR /app
 COPY package*.json ./
 
 RUN npm install --production
+RUN ls -la
 
 COPY ./pg-migrations/src ./src
 COPY ./pg-migrations/.env ./.env
