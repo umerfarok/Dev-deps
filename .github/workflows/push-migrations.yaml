@@ -27,8 +27,8 @@ jobs:
             - name: Build Docker image
               uses: docker/build-push-action@v2
               with:
-                    context: .
-                    file: ./pg-migrations/Dockerfile
-                    push: true
-                    tags: 09078601/migrations:v1.0.2
-                    no-cache: true
+                context: ./pg-migrations
+                file: ./pg-migrations/Dockerfile
+                push: true
+                tags: 09078601/migrations:v1.0.2
+                no-cache: true
