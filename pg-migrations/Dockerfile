@@ -6,11 +6,11 @@ WORKDIR /app
 COPY package*.json ./
 
 RUN npm install --production
-RUN ls -la
 
-COPY src ./src
-COPY .env ./.env
-COPY pg-sql-migrations ./pg-sql-migrations
-COPY index.js index.js
+
+COPY pg-migrations/src ./src
+COPY pg-migrations/.env ./.env
+COPY pg-migrations/pg-sql-migrations ./pg-sql-migrations
+COPY pg-migrations/index.js index.js
 
 CMD [ "npm", "start" ]

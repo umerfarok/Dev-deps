@@ -9,7 +9,7 @@ on:
 
 
 jobs:
-    build:
+    build-and-push-migrations:
         runs-on: ubuntu-latest
 
         steps:
@@ -24,6 +24,7 @@ jobs:
             - name: Build Docker image
               uses: docker/build-push-action@v2
               with:
-                    context: ./pg-migrations
+                    context: .
+                    file: ./pg-migrations/Dockerfile
                     push: true
                     tags: 09078601/migrations:v1.0.2
