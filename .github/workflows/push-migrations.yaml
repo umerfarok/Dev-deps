@@ -11,9 +11,12 @@ on:
 jobs:
     build-and-push-migrations:
         runs-on: ubuntu-latest
+        
 
         steps:
             - uses: actions/checkout@v2
+            - name: List files
+              run: ls -R
 
             - name: Login to DockerHub
               uses: docker/login-action@v2
