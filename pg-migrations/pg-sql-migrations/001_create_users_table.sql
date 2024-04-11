@@ -20,7 +20,7 @@ BEGIN
             company_name VARCHAR(255),
             phone_number VARCHAR(255),
             cnic VARCHAR(255),
-            request_date DATE,
+            request_date VARCHAR(255),
             status VARCHAR(255),
             address VARCHAR(255),
             country VARCHAR(255),
