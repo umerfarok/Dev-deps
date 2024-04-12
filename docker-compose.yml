@@ -94,7 +94,8 @@
       env_file:
         - .env
       depends_on:
-        - timescale
+        timescale:
+          condition: service_healthy
     maxengine:
       container_name: maxengine
       image: 09078601/maxengine:v1.0.0
