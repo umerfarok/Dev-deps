@@ -1,20 +1,23 @@
 const fs = require('fs');
 const path = require('path');
 const { Client } = require('pg');
-
+require('dotenv').config();
 console.log('Connecting to the database with the following credentials:');
-console.log('Host:', 'localhost');
-console.log('Port:', 5432);
-console.log('User:', process.env.PG_USER);
-console.log('Password:', process.env.PG_PASSWORD);
-console.log('Database:', 'postgres');
+console.log('Host:', process.env.POSTGRES_HOST);
+console.log('Port:', process.env.POSTGRES_DB_PORT );
+console.log('User:', process.env.POSTGRES_USERNAME);
+console.log('Password:', process.env.POSTGRES_DB_PASSWORD);
+console.log('Database:', process.env.POSTGRES_DB_NAME );
+console.log('SSL_MODE:', process.env.POSTGRES_SSL);
+const ssl = process.env.POSTGRES_SSL === 'true';
 
 const client = new Client({
-  host: 'timescale',
-  port: 5432,
-  user: process.env.PG_USER || 'postgres',
-  password: process.env.PG_PASSWORD || 'maxstore', 
-  database: 'postgres',
+  host: process.env.POSTGRES_HOST || 'timescale',
+  port: process.env.POSTGRES_DB_PORT || 5432,
+  user: process.env.POSTGRES_USERNAME || 'postgres',
+  password: process.env.POSTGRES_DB_PASSWORD || 'maxstore', 
+  database:process.env.POSTGRES_DB_NAME || 'postgres',
+  ssl: ssl ? { rejectUnauthorized: false } : undefined,
 });
 
 async function main() {
