@@ -36,8 +36,8 @@
       volumes:
         - ./storage/timescale:/var/lib/postgresql/data
       environment:
-        POSTGRES_PASSWORD: ${PG_PASSWORD}
-        POSTGRES_DB: ${PG_DATABASE}
+        POSTGRES_PASSWORD: maxstore
+        POSTGRES_DB: "postgres"
         PGDATA: /var/lib/postgresql/data/pgdata
       ports:
         - "5432:5432"
@@ -116,3 +116,21 @@
         - timescale
       profiles:
         - "all"
+    mysql:
+      container_name: mysql
+      image: mysql:8.0
+      command: --default-authentication-plugin=mysql_native_password
+      restart: always
+      environment:
+        MYSQL_ROOT_PASSWORD: rootpassword
+        MYSQL_DATABASE: grazle
+        MYSQL_USER: grazleuser
+        MYSQL_PASSWORD: AnotherStr0ngP@ssw0rd!
+      ports:
+        - "3307:3307"
+      volumes:
+        - ./storage/mysql:/var/lib/mysql
+      networks:
+        - maxstore
+      profiles:
+        - "mysql"

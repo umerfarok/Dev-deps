@@ -33,3 +33,8 @@ Health checks are configured for the MongoDB and TimescaleDB services. The Mongo
 ## Logging
 
 Both the MongoDB and TimescaleDB services are configured to use the `json-file` logging driver, with a maximum of 5 log files and a maximum size of 100MB per file.
+
+
+## Commands to run diffrent services
+run only mysql 
+docker compose up -d mysql
